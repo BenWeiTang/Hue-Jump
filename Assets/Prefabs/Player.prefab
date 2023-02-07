@@ -1,0 +1,76 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!1 &4153057401138023974
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 5757726404484895014}
+  - component: {fileID: 1173150544389185700}
+  - component: {fileID: 2965317485215867945}
+  m_Layer: 0
+  m_Name: Player
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &5757726404484895014
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4153057401138023974}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1173150544389185700
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4153057401138023974}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 563cf65bed37d8a4c91894ac04c96b65, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _polygonBuilder: {fileID: 2965317485215867945}
+  _jumpForce: 11.9
+  _maxFallSpeed: 10
+  _gravityScale: 1.5
+  _downwardAccelerationModifier: 1.55
+  _maxMoveSpeed: 12.5
+  _acceleration: 14.9
+  _decelarationModifier: 0.579
+  _apexModifier: 0.52
+  _bounceAnimDuration: 0.0594
+  _squeezeAmount: 0.526
+  _rotateAnimDuration: 0.05
+--- !u!114 &2965317485215867945
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4153057401138023974}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ba0750b98a74e9741b75fd4aa4f8bfc0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _colorPalette: {fileID: 11400000, guid: 2f3eba5de377d3b46b89198d1d00f369, type: 2}
+  _maxPolygon: 5
+  _edgeLength: 1
+  _edgeDepthOffset: -0.02
+  _edge: {fileID: 7230309271431674616, guid: 6ba1b3c63e40c2f4d83378109dce4226, type: 3}
