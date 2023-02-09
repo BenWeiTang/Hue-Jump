@@ -590,7 +590,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _player: {fileID: 1061432179}
-  _followThreshold: 1.82
+  _followThreshold: 1.11
 --- !u!1 &561748640
 GameObject:
   m_ObjectHideFlags: 0
@@ -1126,6 +1126,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 1173150544389185700, guid: b66ca7cc2946a2b49a69b54d9d6cb55d, type: 3}
+      propertyPath: _jumpForce
+      value: 9.3
+      objectReference: {fileID: 0}
     - target: {fileID: 4153057401138023974, guid: b66ca7cc2946a2b49a69b54d9d6cb55d, type: 3}
       propertyPath: m_Name
       value: Player
