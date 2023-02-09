@@ -1,3 +1,4 @@
+using System;
 using DG.Tweening;
 using Unity.Mathematics;
 using UnityEngine;
@@ -53,7 +54,10 @@ public class PlayerController : MonoBehaviour
         _rigidbody2D = GetComponent<Rigidbody2D>(); // Important: needs to come after the polygons were built
         _rigidbody2D.gravityScale = _gravityScale;
         gameObject.layer = _polygonBuilder.CurrentPolygon.CurrentColorLayer;
+        GameManager.Instance.GameEnded += OnGameEnded;
     }
+
+    private void OnDisable() => GameManager.Instance.GameEnded -= OnGameEnded;
 
     private void Update()
     {
@@ -134,6 +138,11 @@ public class PlayerController : MonoBehaviour
             _rigidbody2D.velocity = Vector2.zero;
             _rigidbody2D.AddForce(_jumpForce * Vector2.up, ForceMode2D.Impulse);
         });
+    }
+
+    private void OnGameEnded()
+    {
+        gameObject.SetActive(false);
     }
 }
 
