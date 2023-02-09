@@ -70,17 +70,16 @@ public class PlayerController : MonoBehaviour
         if (_horizontalInput != 0.0f)
         {
             if (_rigidbody2D.velocity.x > 0 && _horizontalInput < 0 || _rigidbody2D.velocity.x < 0 && _horizontalInput > 0)
-            {
                 accelerationForce = _horizontalInput * _acceleration * (1.0f + _decelarationModifier);
-            }
             else
-            {
                 accelerationForce = _horizontalInput * _acceleration;
-            }
         }
         else
         {
-            accelerationForce = _rigidbody2D.velocity.x > 0 ? -_acceleration * (1.0f + _decelarationModifier) : _acceleration * (1.0f + _decelarationModifier);
+            if (_rigidbody2D.velocity.x < 0.01f)
+                accelerationForce = 0.0f;
+            else
+                accelerationForce = _rigidbody2D.velocity.x > 0 ? -_acceleration * (1.0f + _decelarationModifier) : _acceleration * (1.0f + _decelarationModifier);
         }
 
         _rigidbody2D.AddForce(Vector2.right * accelerationForce);
