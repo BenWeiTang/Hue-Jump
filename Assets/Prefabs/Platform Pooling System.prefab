@@ -1,0 +1,60 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!1 &7038310258169397475
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 7038310258169397473}
+  - component: {fileID: 7038310258169397472}
+  m_Layer: 0
+  m_Name: Platform Pooling System
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &7038310258169397473
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7038310258169397475}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &7038310258169397472
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7038310258169397475}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 65d68e249dbc1a2479383c195c4d6fd9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _platforms:
+  - {fileID: 2836065381726573089, guid: 3e03c85b093014d418f1f89c962a25fd, type: 3}
+  - {fileID: 2836065381726573089, guid: deaff77b688e0584d94f069a8d4231c4, type: 3}
+  - {fileID: 2836065381726573089, guid: 35dc09b81a6b32b4292f8a539e9e2c33, type: 3}
+  - {fileID: 2836065381726573089, guid: 8ee6030d64570af4899abd7e0756c946, type: 3}
+  - {fileID: 2836065381726573089, guid: fde5720adc3df0a46bf6094a17da4b5e, type: 3}
+  - {fileID: 2836065381726573089, guid: 3df403c71d9d8304f8a1c90be9532262, type: 3}
+  _player: {fileID: 0}
+  _poolSize: 20
+  _initialHeight: 2
+  _spawnAheadDistance: 10
+  _retrieveDistance: 5
+  _spacing: 1
+  _spawnChunkSize: 10
