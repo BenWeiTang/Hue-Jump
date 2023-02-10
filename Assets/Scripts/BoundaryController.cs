@@ -8,6 +8,7 @@ public class BoundaryController : MonoBehaviour
         if (!col.CompareTag("Player")) return;
         var rb = col.GetComponent<Rigidbody2D>();
         var position = rb.position;
+        position.x *= 0.95f;
         position = new Vector2(-position.x, position.y);
         rb.position = position;
     }
