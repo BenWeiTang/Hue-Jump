@@ -277,11 +277,11 @@ MonoBehaviour:
   - {fileID: 2836065381726573089, guid: fde5720adc3df0a46bf6094a17da4b5e, type: 3}
   - {fileID: 2836065381726573089, guid: 3df403c71d9d8304f8a1c90be9532262, type: 3}
   _player: {fileID: 1061432179}
-  _poolSize: 50
+  _poolSize: 20
   _initialHeight: 2
-  _spawnAheadDistance: 5
-  _retrieveDistance: 10
-  _spacing: 0.7
+  _spawnAheadDistance: 2.5
+  _retrieveDistance: 5
+  _spacing: 1
   _spawnChunkSize: 10
 --- !u!4 &206124787
 Transform:
@@ -749,7 +749,7 @@ GameObject:
   - component: {fileID: 647541549}
   m_Layer: 0
   m_Name: Starting Ground
-  m_TagString: Untagged
+  m_TagString: Platform
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0

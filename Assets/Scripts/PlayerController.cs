@@ -128,6 +128,12 @@ public class PlayerController : MonoBehaviour
 
     private void OnCollisionEnter2D(Collision2D col)
     {
+        if (!col.gameObject.CompareTag("Platform"))
+            return;
+
+        if (_rigidbody2D.velocity.y > 0.0f)
+            return;
+        
         _rigidbody2D.velocity = Vector2.zero;
 
         var t = transform;
