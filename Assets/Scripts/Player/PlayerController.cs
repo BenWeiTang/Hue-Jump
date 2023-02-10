@@ -28,7 +28,7 @@ public class PlayerController : MonoBehaviour
     private float _acceleration = 10;
 
     [SerializeField, Range(0.0f, 1.0f)]
-    private float _decelarationModifier = 0.5f;
+    private float _decelerationModifier = 0.5f;
 
     [SerializeField, Range(0.0f, 1.0f)]
     private float _apexModifier = 0.5f;
@@ -80,7 +80,7 @@ public class PlayerController : MonoBehaviour
         if (_horizontalInput != 0.0f)
         {
             if (_rigidbody2D.velocity.x > 0 && _horizontalInput < 0 || _rigidbody2D.velocity.x < 0 && _horizontalInput > 0)
-                accelerationForce = _horizontalInput * _acceleration * (1.0f + _decelarationModifier);
+                accelerationForce = _horizontalInput * _acceleration * (1.0f + _decelerationModifier);
             else
                 accelerationForce = _horizontalInput * _acceleration;
         }
@@ -89,7 +89,7 @@ public class PlayerController : MonoBehaviour
             if (_rigidbody2D.velocity.x < 0.01f)
                 accelerationForce = 0.0f;
             else
-                accelerationForce = _rigidbody2D.velocity.x > 0 ? -_acceleration * (1.0f + _decelarationModifier) : _acceleration * (1.0f + _decelarationModifier);
+                accelerationForce = _rigidbody2D.velocity.x > 0 ? -_acceleration * (1.0f + _decelerationModifier) : _acceleration * (1.0f + _decelerationModifier);
         }
 
         _rigidbody2D.AddForce(Vector2.right * accelerationForce);
