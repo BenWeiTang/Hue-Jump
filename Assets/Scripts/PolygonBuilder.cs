@@ -34,7 +34,7 @@ public class PolygonBuilder : MonoBehaviour
     {
         Polygons[_index].Center.gameObject.SetActive(false);
         _index++;
-        _index = Mathf.Max(_index, _maxPolygon);
+        _index = Mathf.Min(_index, _maxPolygon);
         Polygons[_index].Center.gameObject.SetActive(true);
     }
 

@@ -44,9 +44,18 @@ public class PlayerController : MonoBehaviour
     [SerializeField, Range(0.0f, 0.1f)]
     private float _rotateAnimDuration = 0.05f;
 
+    [Header("Levels")]
+    [SerializeField, Tooltip("The vertical distance Player needs to travel to level up to Square")]
+    private float _squareThreshold;
+    [SerializeField, Tooltip("The vertical distance Player needs to travel to level up to Pentagon. Must be greater than Square Threshold")]
+    private float _pentagonThreshold;
+    [SerializeField, Tooltip("The vertical distance Player needs to travel to level up to Hexagon. Must be greater than Pentagon Threshold")]
+    private float _hexagonThreshold;
+
 
     private Rigidbody2D _rigidbody2D;
     private float _horizontalInput;
+    private int _currentLevel = 3;
 
     private void Awake()
     {
@@ -62,6 +71,7 @@ public class PlayerController : MonoBehaviour
     private void Update()
     {
         GetInput();
+        CheckLevelUp();
     }
 
     private void FixedUpdate()
@@ -126,6 +136,19 @@ public class PlayerController : MonoBehaviour
         gameObject.layer = polygon.CurrentColorLayer;
     }
 
+    private void CheckLevelUp()
+    {
+        var currentHeight = _rigidbody2D.position.y;
+        if (currentHeight > _squareThreshold && _currentLevel == 3 ||
+            currentHeight > _pentagonThreshold && _currentLevel == 4 ||
+            currentHeight > _hexagonThreshold && _currentLevel == 5)
+        {
+            _currentLevel++;
+            _polygonBuilder.LevelUp();
+            GameManager.Instance.LevelUp();
+        }
+    }
+
     private void OnCollisionEnter2D(Collision2D col)
     {
         if (!col.gameObject.CompareTag("Platform"))
@@ -143,6 +166,8 @@ public class PlayerController : MonoBehaviour
             _rigidbody2D.velocity = Vector2.zero;
             _rigidbody2D.AddForce(_jumpForce * Vector2.up, ForceMode2D.Impulse);
         });
+        
+        GameManager.Instance.PlayerJump();
     }
 
     private void OnGameEnded()

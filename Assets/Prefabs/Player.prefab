@@ -46,7 +46,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _polygonBuilder: {fileID: 2965317485215867945}
-  _jumpForce: 11.9
+  _jumpForce: 9.3
   _maxFallSpeed: 10
   _gravityScale: 1.5
   _downwardAccelerationModifier: 1.55
@@ -57,6 +57,9 @@ MonoBehaviour:
   _bounceAnimDuration: 0.0594
   _squeezeAmount: 0.526
   _rotateAnimDuration: 0.05
+  _squareThreshold: 0
+  _pentagonThreshold: 0
+  _hexagonThreshold: 0
 --- !u!114 &2965317485215867945
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -70,7 +73,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _colorPalette: {fileID: 11400000, guid: 2f3eba5de377d3b46b89198d1d00f369, type: 2}
-  _maxPolygon: 5
+  _maxPolygon: 6
   _edgeLength: 1
   _edgeDepthOffset: -0.02
   _edge: {fileID: 7230309271431674616, guid: 6ba1b3c63e40c2f4d83378109dce4226, type: 3}

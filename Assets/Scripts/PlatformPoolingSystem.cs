@@ -25,9 +25,14 @@ public class PlatformPoolingSystem : MonoBehaviour
     {
         CreatePlatforms();
         GameManager.Instance.GameEnded += OnGameEnded;
+        GameManager.Instance.PlayerLeveledUp += OnPlayerLeveledUp;
     }
 
-    private void OnDestroy() => GameManager.Instance.GameEnded -= OnGameEnded;
+    private void OnDestroy()
+    {
+        GameManager.Instance.GameEnded -= OnGameEnded;
+        GameManager.Instance.PlayerLeveledUp -= OnPlayerLeveledUp;
+    }
 
     private void Start()
     {
@@ -37,8 +42,8 @@ public class PlatformPoolingSystem : MonoBehaviour
 
     private void Update()
     {
-        if (_player.position.y > _lastSpawnHeight + _spawnAheadDistance)
-            PlacePlatforms(_player.position.y + _spawnAheadDistance);
+        if (_player.position.y + _spawnAheadDistance > _lastSpawnHeight)
+            PlacePlatforms(_lastSpawnHeight + _spacing * _spawnChunkSize);
     }
 
     private void CreatePlatforms()
@@ -65,12 +70,13 @@ public class PlatformPoolingSystem : MonoBehaviour
 
     private void PlacePlatforms(float startHeight)
     {
+        Debug.Log("Spawning");
         _lastSpawnHeight = startHeight;
         for (int i = 0; i < _spawnChunkSize; i++)
         {
             var rand = Random.Range(0, _currentLevel);
             var platform = _pools[rand].Dequeue();
-            platform.transform.position = new Vector3(Random.Range(-3f, 3f), startHeight + i * _spacing, 0.0f);
+            platform.transform.position = new Vector3(Random.Range(-2f, 2f), startHeight + i * _spacing, 0.0f);
             platform.SetActive(true);
         }
     }
@@ -102,4 +108,6 @@ public class PlatformPoolingSystem : MonoBehaviour
     }
 
     private void OnGameEnded() => _isGameEnded = true;
+
+    private void OnPlayerLeveledUp() => _currentLevel++;
 }
