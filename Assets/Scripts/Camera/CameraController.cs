@@ -50,14 +50,14 @@ public class CameraController : MonoBehaviour
 
     private void OnPlayerJumped()
     {
-        if (!_jumpSFX || _audioSource)
+        if (!_jumpSFX || !_audioSource)
             return;
         _audioSource.PlayOneShot(_jumpSFX);
     }
     
     private void OnPlayerLeveledUp()
     {
-        if (!_levelUpSFX || _audioSource)
+        if (!_levelUpSFX || !_audioSource)
             return;
         _audioSource.PlayOneShot(_levelUpSFX);
     }
@@ -66,7 +66,7 @@ public class CameraController : MonoBehaviour
     {
         _isGameEnded = true;
         
-        if (!_deathSFX || _audioSource)
+        if (!_deathSFX || !_audioSource)
             return;
         _audioSource.PlayOneShot(_deathSFX);
     }
