@@ -52,8 +52,9 @@ MonoBehaviour:
   _downwardAccelerationModifier: 1.55
   _maxMoveSpeed: 12.5
   _acceleration: 14.9
-  _decelarationModifier: 0.579
+  _decelerationModifier: 0.5
   _apexModifier: 0.52
+  _resumeMoveSpeed: 2.3
   _bounceAnimDuration: 0.0594
   _squeezeAmount: 0.526
   _rotateAnimDuration: 0.05

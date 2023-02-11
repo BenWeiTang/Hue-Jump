@@ -1,27 +1,33 @@
+using System.Linq;
 using UnityEngine;
-
-
-
 public class DeathZoneController : MonoBehaviour
 {
 
-    public int lives = 3;
-    public GameObject[] liveImages;
+    [SerializeField] private int _maxLifeCount = 3;
+    [SerializeField] private GameObject[] _lifeImages;
+
+    private int _lifeCount;
+
+    private void Start()
+    {
+        _lifeCount = _maxLifeCount;
+    }
+
     private void OnTriggerEnter2D(Collider2D col)
     {
-        if(col.CompareTag("Player"))
+        if (!col.CompareTag("Player")) return;
+
+        _lifeCount--;
+        if (_lifeImages.ElementAtOrDefault(_lifeCount) != null)
+            _lifeImages[_lifeCount].SetActive(false);
+        Debug.Log("Lives = " + _lifeCount);
+        if (_lifeCount <= 0)
         {
-            if (lives == 1)
-            {
-                GameManager.Instance.EndGame();
-            }
-            else
-            {
-                Debug.Log("Lives = " + lives);
-                lives--;
-                liveImages[lives].SetActive(false);
-                col.gameObject.transform.position += Vector3.up * 5f;
-            }
+            GameManager.Instance.EndGame();
+        }
+        else
+        {
+            GameManager.Instance.KillPlayer();
         }
     }
 }

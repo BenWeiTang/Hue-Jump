@@ -1,4 +1,3 @@
-using System;
 using DG.Tweening;
 using Unity.Mathematics;
 using UnityEngine;
@@ -33,6 +32,9 @@ public class PlayerController : MonoBehaviour
     [SerializeField, Range(0.0f, 1.0f)]
     private float _apexModifier = 0.5f;
 
+    [SerializeField, Range(0.0f, 5.0f), Tooltip("The speed at which Player moves horizontally when waiting for resuming gameplay.")]
+    private float _resumeMoveSpeed = 2.0f;
+
 
     [Header("Animation")]
     [SerializeField, Range(0.0f, 0.1f)]
@@ -56,6 +58,7 @@ public class PlayerController : MonoBehaviour
     private Rigidbody2D _rigidbody2D;
     private float _horizontalInput;
     private int _currentLevel = 3;
+    private bool _isWaitingForResume;
 
     private void Awake()
     {
@@ -64,9 +67,14 @@ public class PlayerController : MonoBehaviour
         _rigidbody2D.gravityScale = _gravityScale;
         gameObject.layer = _polygonBuilder.CurrentPolygon.CurrentColorLayer;
         GameManager.Instance.GameEnded += OnGameEnded;
+        GameManager.Instance.PlayerDied += OnPlayerDied;
     }
 
-    private void OnDisable() => GameManager.Instance.GameEnded -= OnGameEnded;
+    private void OnDisable()
+    {
+        GameManager.Instance.GameEnded -= OnGameEnded;
+        GameManager.Instance.PlayerDied -= OnPlayerDied;
+    }
 
     private void Update()
     {
@@ -75,6 +83,14 @@ public class PlayerController : MonoBehaviour
     }
 
     private void FixedUpdate()
+    {
+        if (!_isWaitingForResume)
+            NormalMove();
+        else
+            ResumeMove();
+    }
+
+    private void NormalMove()
     {
         float accelerationForce;
         if (_horizontalInput != 0.0f)
@@ -103,6 +119,12 @@ public class PlayerController : MonoBehaviour
         _rigidbody2D.velocity = new Vector2(xVelocity, yVelocity);
     }
 
+    private void ResumeMove()
+    {
+        var current = _rigidbody2D.position;
+        _rigidbody2D.MovePosition(current + Vector2.right * (_resumeMoveSpeed * _horizontalInput * Time.fixedDeltaTime));
+    }
+
     private void GetInput()
     {
         if (Input.GetKey(KeyCode.A) && !Input.GetKey(KeyCode.D))
@@ -116,6 +138,9 @@ public class PlayerController : MonoBehaviour
             RotatePolygon(RotationDirection.Left);
         else if (Input.GetKeyDown(KeyCode.RightArrow))
             RotatePolygon(RotationDirection.Right);
+        
+        if (_isWaitingForResume && Input.GetKeyDown(KeyCode.Space))
+            Resume();
     }
 
     private void RotatePolygon(RotationDirection direction)
@@ -149,6 +174,12 @@ public class PlayerController : MonoBehaviour
         }
     }
 
+    private void Resume()
+    {
+        _rigidbody2D.isKinematic = false;
+        _isWaitingForResume = false;
+    }
+
     private void OnCollisionEnter2D(Collision2D col)
     {
         if (!col.gameObject.CompareTag("Platform"))
@@ -173,6 +204,14 @@ public class PlayerController : MonoBehaviour
     private void OnGameEnded()
     {
         gameObject.SetActive(false);
+    }
+
+    private void OnPlayerDied()
+    {
+        _rigidbody2D.velocity = Vector2.zero;
+        _rigidbody2D.isKinematic = true;
+        _rigidbody2D.position += 5f * Vector2.up;
+        _isWaitingForResume = true;
     }
 }
 

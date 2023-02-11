@@ -53,7 +53,7 @@ MonoBehaviour:
   - {fileID: 2836065381726573089, guid: 3df403c71d9d8304f8a1c90be9532262, type: 3}
   _player: {fileID: 0}
   _poolSize: 20
-  _initialHeight: 2
+  _initialHeight: 1.7
   _spawnAheadDistance: 10
   _retrieveDistance: 5
   _spacing: 1

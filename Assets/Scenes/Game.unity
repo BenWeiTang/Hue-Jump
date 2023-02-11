@@ -370,11 +370,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d080333350f35d14f89f136c15fe3b73, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  lives: 3
-  liveImages:
-  - {fileID: 1709266626}
-  - {fileID: 1638630880}
-  - {fileID: 1284072395}
+  _maxLifeCount: 3
+  _liveImages: []
 --- !u!1 &519420028
 GameObject:
   m_ObjectHideFlags: 0
