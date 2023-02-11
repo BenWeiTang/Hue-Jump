@@ -15,7 +15,7 @@ public class PlayerController : MonoBehaviour
     private float _maxFallSpeed = 10;
 
     [SerializeField, Range(0.0f, 5.0f)]
-    private float _gravityScale = 1.0f;
+    public float _gravityScale = 1.0f;
 
     [SerializeField, Range(0.0f, 10.0f)]
     private float _downwardAccelerationModifier = 1.0f;
