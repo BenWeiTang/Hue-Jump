@@ -30,12 +30,23 @@ public class PolygonBuilder : MonoBehaviour
         Setup();
     }
 
-    public void LevelUp()
+    public void LevelUp(int currentColorLayer)
     {
         Polygons[_index].Center.gameObject.SetActive(false);
         _index++;
         _index = Mathf.Min(_index, _maxPolygon);
         Polygons[_index].Center.gameObject.SetActive(true);
+        
+        // All polygons are originally in red (layer 6)
+        int diff = currentColorLayer - 6; 
+        var polygon = Polygons[_index];
+        float step = 2 * Mathf.PI / polygon.N;
+        step *= Mathf.Rad2Deg;
+        for (int i = 0; i < diff; i++)
+        {
+            polygon.RotateLeft();
+            polygon.Center.Rotate(0.0f, 0.0f, step, Space.Self);
+        }
     }
 
     private void BuildFoundation()

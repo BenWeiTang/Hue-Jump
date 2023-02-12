@@ -169,7 +169,7 @@ public class PlayerController : MonoBehaviour
             currentHeight > _hexagonThreshold && _currentLevel == 5)
         {
             _currentLevel++;
-            _polygonBuilder.LevelUp();
+            _polygonBuilder.LevelUp(gameObject.layer);
             GameManager.Instance.LevelUp();
         }
     }
