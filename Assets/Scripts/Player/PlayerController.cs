@@ -182,18 +182,23 @@ public class PlayerController : MonoBehaviour
 
     private void OnCollisionEnter2D(Collision2D col)
     {
+        // If find no PlayerController, it is not a platform
         var platform = col.gameObject.GetComponent<PlatformController>();
         if (!platform)
             return;
 
+        // Should not bounce while still moving up
         if (_rigidbody2D.velocity.y > 0.0f)
             return;
         
         _rigidbody2D.velocity = Vector2.zero;
 
+        var platformType = platform.PlatformType;
+        var jumpForceModifier = platformType == PlatformType.Trampoline ? 1.75f : 1f;
+        
+        // First shrink and then tween back to the normal y scale
         var t = transform;
         t.localScale = new Vector3(1.0f, 1.0f - _squeezeAmount, 1.0f);
-        var jumpForceModifier = platform.PlatformType == PlatformType.Trampoline ? 1.75f : 1f;
         t.DOScaleY(1.0f, _bounceAnimDuration).OnComplete(() =>
         {
             _rigidbody2D.velocity = Vector2.zero;
@@ -201,6 +206,9 @@ public class PlayerController : MonoBehaviour
         });
         
         GameManager.Instance.PlayerJump();
+
+        if (platformType == PlatformType.OneTime)
+            Destroy(col.gameObject);
     }
 
     private void OnGameEnded()
