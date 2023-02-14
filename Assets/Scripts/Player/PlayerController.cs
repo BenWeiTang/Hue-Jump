@@ -182,7 +182,10 @@ public class PlayerController : MonoBehaviour
 
     private void OnCollisionEnter2D(Collision2D col)
     {
-        if (!col.gameObject.CompareTag("Platform"))
+        if (!(col.gameObject.CompareTag("Platform") || 
+            col.gameObject.CompareTag("Trampoline") || 
+            col.gameObject.CompareTag("OneTimePlatform") ||
+            col.gameObject.CompareTag("Swapper")))
             return;
 
         if (_rigidbody2D.velocity.y > 0.0f)
@@ -192,10 +195,11 @@ public class PlayerController : MonoBehaviour
 
         var t = transform;
         t.localScale = new Vector3(1.0f, 1.0f - _squeezeAmount, 1.0f);
+        var jumpForceModifier = col.gameObject.CompareTag("Trampoline") ? 1.75f : 1f;
         t.DOScaleY(1.0f, _bounceAnimDuration).OnComplete(() =>
         {
             _rigidbody2D.velocity = Vector2.zero;
-            _rigidbody2D.AddForce(_jumpForce * Vector2.up, ForceMode2D.Impulse);
+            _rigidbody2D.AddForce(_jumpForce * jumpForceModifier * Vector2.up, ForceMode2D.Impulse);
         });
         
         GameManager.Instance.PlayerJump();
