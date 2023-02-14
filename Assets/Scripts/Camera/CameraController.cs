@@ -20,17 +20,20 @@ public class CameraController : MonoBehaviour
     [SerializeField, Tooltip("The SFX to play when Player levels up")]
     private AudioClip _levelUpSFX;
     
-    [SerializeField, Tooltip("The SFX to play when Player dies")]
+    [SerializeField, Tooltip("The SFX to play when the game is over")]
+    private AudioClip _gameOverSFX;
+
+    [SerializeField, Tooltip("The SFX to play when Player touches the Death Zone")]
     private AudioClip _deathSFX;
     
-
     private bool _isGameEnded;
 
-    private void Awake()
+    private void Start()
     {
         GameManager.Instance.PlayerJumped += OnPlayerJumped;
         GameManager.Instance.PlayerLeveledUp += OnPlayerLeveledUp;
         GameManager.Instance.GameEnded += OnGameEnded;
+        GameManager.Instance.PlayerDied += OnPlayerDied;
     }
 
     private void OnDestroy()
@@ -38,6 +41,7 @@ public class CameraController : MonoBehaviour
         GameManager.Instance.PlayerJumped -= OnPlayerJumped;
         GameManager.Instance.PlayerLeveledUp -= OnPlayerLeveledUp;
         GameManager.Instance.GameEnded -= OnGameEnded;
+        GameManager.Instance.PlayerDied -= OnPlayerDied;
     }
 
     private void LateUpdate()
@@ -48,26 +52,26 @@ public class CameraController : MonoBehaviour
         transform.position = position;
     }
 
-    private void OnPlayerJumped()
-    {
-        if (!_jumpSFX || !_audioSource)
-            return;
-        _audioSource.PlayOneShot(_jumpSFX);
-    }
-    
-    private void OnPlayerLeveledUp()
-    {
-        if (!_levelUpSFX || !_audioSource)
-            return;
-        _audioSource.PlayOneShot(_levelUpSFX);
-    }
+    private void OnPlayerJumped() => PlaySFX(_jumpSFX);
+
+    private void OnPlayerLeveledUp() => PlaySFX(_levelUpSFX);
     
     private void OnGameEnded()
     {
         _isGameEnded = true;
-        
-        if (!_deathSFX || !_audioSource)
+        PlaySFX(_gameOverSFX);
+    }
+
+    private void OnPlayerDied() => PlaySFX(_deathSFX);
+
+    private void PlaySFX(AudioClip audioClip)
+    {
+        if (!_audioSource || !audioClip)
             return;
-        _audioSource.PlayOneShot(_deathSFX);
+        
+        if (_audioSource.isPlaying)
+            _audioSource.Stop();
+        _audioSource.clip = audioClip;
+        _audioSource.Play();
     }
 }
