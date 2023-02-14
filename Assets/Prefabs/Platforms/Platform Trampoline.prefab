@@ -7,13 +7,13 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: -45733531646672678, guid: 0b89a17ac0db97642b811b26a495dbce, type: 3}
+      propertyPath: _platformType
+      value: 2
+      objectReference: {fileID: 0}
     - target: {fileID: 2356841814793356793, guid: 0b89a17ac0db97642b811b26a495dbce, type: 3}
       propertyPath: m_Name
       value: Platform Trampoline
-      objectReference: {fileID: 0}
-    - target: {fileID: 2356841814793356793, guid: 0b89a17ac0db97642b811b26a495dbce, type: 3}
-      propertyPath: m_TagString
-      value: Trampoline
       objectReference: {fileID: 0}
     - target: {fileID: 2356841814793356796, guid: 0b89a17ac0db97642b811b26a495dbce, type: 3}
       propertyPath: m_Color.b

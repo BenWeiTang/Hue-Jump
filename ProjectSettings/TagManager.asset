@@ -5,9 +5,6 @@ TagManager:
   serializedVersion: 2
   tags:
   - Platform
-  - Trampoline
-  - Swapper
-  - OneTimePlatform
   layers:
   - Default
   - TransparentFX
