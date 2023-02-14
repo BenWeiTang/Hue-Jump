@@ -9,12 +9,25 @@ public class GameManager : MonoBehaviour
     public event Action PlayerJumped;
     public event Action PlayerLeveledUp;
     public event Action PlayerDied;
-    private void Awake() => Instance = this;
+    public int MaxLifeCount => _maxLifeCount;
+    public int CurrentLifeCount { get; private set; }
+    
+    [SerializeField] private int _maxLifeCount = 3;
+    private void Awake()
+    {
+        Instance = this;
+        CurrentLifeCount = _maxLifeCount;
+    }
 
     public void EndGame() => GameEnded?.Invoke();
     public void LevelUp() => PlayerLeveledUp?.Invoke();
     public void PlayerJump() => PlayerJumped?.Invoke();
-    public void KillPlayer() => PlayerDied?.Invoke();
+    public void KillPlayer()
+    {
+        CurrentLifeCount--;
+        PlayerDied?.Invoke();
+    }
+
     public void RestartGame() => SceneManager.LoadScene(1);
 
 }

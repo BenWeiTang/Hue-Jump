@@ -1,3 +1,4 @@
+using System.Linq;
 using TMPro;
 using UnityEngine;
 
@@ -8,7 +9,8 @@ public class GameplayUIController : MonoBehaviour
     [SerializeField] private Transform _camera;
     [SerializeField] private TextMeshProUGUI _scoreText;
     [SerializeField] private TextMeshProUGUI _finalScoreText;
-    
+    [SerializeField] private GameObject[] _lifeImages;
+
     private float _cameraInitialHeight;
 
     public void RestartGame() => GameManager.Instance.RestartGame();
@@ -16,6 +18,7 @@ public class GameplayUIController : MonoBehaviour
     private void Start()
     {
         GameManager.Instance.GameEnded += OnGameEnded;
+        GameManager.Instance.PlayerDied += OnPlayerDied;
         _inGamePanel.alpha = 1;
         _inGamePanel.interactable = false;
         _inGamePanel.blocksRaycasts = false;
@@ -26,7 +29,11 @@ public class GameplayUIController : MonoBehaviour
         _cameraInitialHeight = _camera.position.y;
     }
     
-    private void OnDestroy() => GameManager.Instance.GameEnded -= OnGameEnded;
+    private void OnDestroy()
+    {
+        GameManager.Instance.GameEnded -= OnGameEnded;
+        GameManager.Instance.PlayerDied -= OnPlayerDied;
+    }
 
     private void Update()
     {
@@ -40,5 +47,12 @@ public class GameplayUIController : MonoBehaviour
         _endGamePanel.interactable = true;
         _endGamePanel.blocksRaycasts = true;
         _finalScoreText.text = _scoreText.text;
+    }
+
+    private void OnPlayerDied()
+    {
+        var currentLifeCount = GameManager.Instance.CurrentLifeCount;
+        if (_lifeImages.ElementAtOrDefault(GameManager.Instance.CurrentLifeCount) != null)
+            _lifeImages[currentLifeCount].SetActive(false);
     }
 }
