@@ -479,9 +479,9 @@ MonoBehaviour:
   _player: {fileID: 1061432179}
   _followThreshold: 1.11
   _audioSource: {fileID: 519420034}
-  _jumpSFX: {fileID: 0}
-  _levelUpSFX: {fileID: 0}
-  _deathSFX: {fileID: 0}
+  _jumpSFX: {fileID: 8300000, guid: 58b491928924346fc89107caa2865b53, type: 3}
+  _levelUpSFX: {fileID: 8300000, guid: 441b0e737223144a0b0ac1a0ee06a0d5, type: 3}
+  _deathSFX: {fileID: 8300000, guid: 8d586f56fd7aa49e3a4935fa7514e441, type: 3}
 --- !u!82 &519420034
 AudioSource:
   m_ObjectHideFlags: 0
