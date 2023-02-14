@@ -7,6 +7,7 @@ using Random = UnityEngine.Random;
 public class PlatformPoolingSystem : MonoBehaviour
 {
     [SerializeField] private List<GameObject> _platforms;
+    [SerializeField] private List<GameObject> _oneTimePlatforms;
     [SerializeField] private Transform _player;
     [SerializeField, Min(0)] private int _poolSize;
     [SerializeField, Min(0.0f)] private float _initialHeight;
@@ -74,8 +75,17 @@ public class PlatformPoolingSystem : MonoBehaviour
         _lastSpawnHeight = startHeight;
         for (int i = 0; i < _spawnChunkSize; i++)
         {
-            var rand = Random.Range(0, _currentLevel);
-            var platform = _pools[rand].Dequeue();
+            var rnd = Random.Range(0, _currentLevel);
+            var specialRnd = Random.Range(0.0f, 1.0f);
+            var isOneTime =  specialRnd < 0.1f;
+            var isTrampoline = specialRnd >= 0.1f && specialRnd < 0.2f;
+            GameObject platform;
+            if (isOneTime)
+                platform = Instantiate(_oneTimePlatforms[rnd]);
+            //TODO: add two other types of platforms
+            else
+                platform = _pools[rnd].Dequeue();
+
             platform.transform.position = new Vector3(Random.Range(-2f, 2f), startHeight + i * _spacing, 0.0f);
             platform.SetActive(true);
         }

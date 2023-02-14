@@ -51,6 +51,13 @@ MonoBehaviour:
   - {fileID: 2836065381726573089, guid: 8ee6030d64570af4899abd7e0756c946, type: 3}
   - {fileID: 2836065381726573089, guid: fde5720adc3df0a46bf6094a17da4b5e, type: 3}
   - {fileID: 2836065381726573089, guid: 3df403c71d9d8304f8a1c90be9532262, type: 3}
+  _oneTimePlatforms:
+  - {fileID: 2836065381726573089, guid: 23c37fab8b5471648bb67bccaa13e388, type: 3}
+  - {fileID: 2836065381726573089, guid: acb231e1e8b084a46b316dbcbe63ce5d, type: 3}
+  - {fileID: 2836065381726573089, guid: 741936bb14a888346bb4f116d780b9e2, type: 3}
+  - {fileID: 2836065381726573089, guid: 519899a38daf9c742896bafc17116c85, type: 3}
+  - {fileID: 2836065381726573089, guid: 07625d10fbaa7b84c8b5af11988aba4d, type: 3}
+  - {fileID: 2836065381726573089, guid: 8d15665e9c9178b428560de41fc4cf02, type: 3}
   _player: {fileID: 0}
   _poolSize: 20
   _initialHeight: 1.7

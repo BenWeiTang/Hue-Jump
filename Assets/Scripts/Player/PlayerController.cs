@@ -203,12 +203,12 @@ public class PlayerController : MonoBehaviour
         {
             _rigidbody2D.velocity = Vector2.zero;
             _rigidbody2D.AddForce(_jumpForce * jumpForceModifier * Vector2.up, ForceMode2D.Impulse);
+            
+            if (platformType == PlatformType.OneTime)
+                Destroy(col.gameObject);
         });
         
         GameManager.Instance.PlayerJump();
-
-        if (platformType == PlatformType.OneTime)
-            Destroy(col.gameObject);
     }
 
     private void OnGameEnded()
