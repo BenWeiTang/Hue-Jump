@@ -11,7 +11,7 @@ public class GameplayUIController : MonoBehaviour
     [SerializeField] private TextMeshProUGUI _scoreText;
     [SerializeField] private TextMeshProUGUI _finalScoreText;
     [SerializeField] private GameObject[] _lifeImages;
-    [SerializeField] private TextMeshProUGUI _SwapText;
+    [SerializeField] private TextMeshProUGUI _swapText;
 
     private float _cameraInitialHeight;
 
@@ -66,14 +66,14 @@ public class GameplayUIController : MonoBehaviour
         
         IEnumerator Countdown()
         {
-            _SwapText.enabled = true;
+            _swapText.enabled = true;
             while (seconds > 0f)
             {
                 seconds -= Time.deltaTime;
-                _SwapText.text = "Switch roles in " + seconds.ToString("0.00");
+                _swapText.text = "Switch roles in " + seconds.ToString("0.00");
                 yield return null;
             }
-            _SwapText.enabled = false;
+            _swapText.enabled = false;
         }
     }
 }

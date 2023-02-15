@@ -8,6 +8,8 @@ public class PlatformPoolingSystem : MonoBehaviour
 {
     [SerializeField] private List<GameObject> _platforms;
     [SerializeField] private List<GameObject> _oneTimePlatforms;
+    [SerializeField] private GameObject _trampolinePlatform;
+    [SerializeField] private GameObject _swapperPlatform;
     [SerializeField] private Transform _player;
     [SerializeField, Min(0)] private int _poolSize;
     [SerializeField, Min(0.0f)] private float _initialHeight;
@@ -71,7 +73,6 @@ public class PlatformPoolingSystem : MonoBehaviour
 
     private void PlacePlatforms(float startHeight)
     {
-        Debug.Log("Spawning");
         _lastSpawnHeight = startHeight;
         for (int i = 0; i < _spawnChunkSize; i++)
         {
@@ -79,10 +80,15 @@ public class PlatformPoolingSystem : MonoBehaviour
             var specialRnd = Random.Range(0.0f, 1.0f);
             var isOneTime =  specialRnd < 0.1f;
             var isTrampoline = specialRnd >= 0.1f && specialRnd < 0.2f;
+            var isSwapper = specialRnd >= 0.2f && specialRnd < 0.25f;
             GameObject platform;
+            
             if (isOneTime)
                 platform = Instantiate(_oneTimePlatforms[rnd]);
-            //TODO: add two other types of platforms
+            else if (isTrampoline)
+                platform = Instantiate(_trampolinePlatform);
+            else if (isSwapper)
+                platform = Instantiate(_swapperPlatform);
             else
                 platform = _pools[rnd].Dequeue();
 
