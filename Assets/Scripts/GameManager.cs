@@ -1,4 +1,5 @@
 using System;
+using System.Collections;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
@@ -9,10 +10,12 @@ public class GameManager : MonoBehaviour
     public event Action PlayerJumped;
     public event Action PlayerLeveledUp;
     public event Action PlayerDied;
-    public int MaxLifeCount => _maxLifeCount;
+    public event Action<float> SwapTriggered;
+    public event Action Swapped;
     public int CurrentLifeCount { get; private set; }
     
     [SerializeField] private int _maxLifeCount = 3;
+    
     private void Awake()
     {
         Instance = this;
@@ -26,6 +29,18 @@ public class GameManager : MonoBehaviour
     {
         CurrentLifeCount--;
         PlayerDied?.Invoke();
+    }
+
+    public void TriggerSwappingInSeconds(float seconds)
+    {
+        SwapTriggered?.Invoke(seconds);
+        StartCoroutine(WaitToSwap());
+
+        IEnumerator WaitToSwap()
+        {
+            yield return new WaitForSeconds(seconds);
+            Swapped?.Invoke();
+        }
     }
 
     public void RestartGame() => SceneManager.LoadScene(1);

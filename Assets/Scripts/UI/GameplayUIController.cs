@@ -1,3 +1,4 @@
+using System.Collections;
 using System.Linq;
 using TMPro;
 using UnityEngine;
@@ -10,6 +11,7 @@ public class GameplayUIController : MonoBehaviour
     [SerializeField] private TextMeshProUGUI _scoreText;
     [SerializeField] private TextMeshProUGUI _finalScoreText;
     [SerializeField] private GameObject[] _lifeImages;
+    [SerializeField] private TextMeshProUGUI _SwapText;
 
     private float _cameraInitialHeight;
 
@@ -19,6 +21,7 @@ public class GameplayUIController : MonoBehaviour
     {
         GameManager.Instance.GameEnded += OnGameEnded;
         GameManager.Instance.PlayerDied += OnPlayerDied;
+        GameManager.Instance.SwapTriggered += OnSwapTriggered;
         _inGamePanel.alpha = 1;
         _inGamePanel.interactable = false;
         _inGamePanel.blocksRaycasts = false;
@@ -33,6 +36,7 @@ public class GameplayUIController : MonoBehaviour
     {
         GameManager.Instance.GameEnded -= OnGameEnded;
         GameManager.Instance.PlayerDied -= OnPlayerDied;
+        GameManager.Instance.SwapTriggered -= OnSwapTriggered;
     }
 
     private void Update()
@@ -54,5 +58,22 @@ public class GameplayUIController : MonoBehaviour
         var currentLifeCount = GameManager.Instance.CurrentLifeCount;
         if (_lifeImages.ElementAtOrDefault(GameManager.Instance.CurrentLifeCount) != null)
             _lifeImages[currentLifeCount].SetActive(false);
+    }
+
+    private void OnSwapTriggered(float seconds)
+    {
+        StartCoroutine(Countdown());
+        
+        IEnumerator Countdown()
+        {
+            _SwapText.enabled = true;
+            while (seconds > 0f)
+            {
+                seconds -= Time.deltaTime;
+                _SwapText.text = "Switch roles in " + seconds.ToString("0.00");
+                yield return null;
+            }
+            _SwapText.enabled = false;
+        }
     }
 }

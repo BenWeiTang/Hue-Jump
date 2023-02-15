@@ -1,3 +1,4 @@
+using System;
 using DG.Tweening;
 using Unity.Mathematics;
 using UnityEngine;
@@ -59,6 +60,7 @@ public class PlayerController : MonoBehaviour
     private float _horizontalInput;
     private int _currentLevel = 3;
     private bool _isWaitingForResume;
+    private bool _isInputSwapped;
 
     private void Awake()
     {
@@ -66,14 +68,20 @@ public class PlayerController : MonoBehaviour
         _rigidbody2D = GetComponent<Rigidbody2D>(); // Important: needs to come after the polygons were built
         _rigidbody2D.gravityScale = _gravityScale;
         gameObject.layer = _polygonBuilder.CurrentPolygon.CurrentColorLayer;
+    }
+
+    private void Start()
+    {
         GameManager.Instance.GameEnded += OnGameEnded;
         GameManager.Instance.PlayerDied += OnPlayerDied;
+        GameManager.Instance.Swapped += OnSwapped;
     }
 
     private void OnDisable()
     {
         GameManager.Instance.GameEnded -= OnGameEnded;
         GameManager.Instance.PlayerDied -= OnPlayerDied;
+        GameManager.Instance.Swapped -= OnSwapped;
     }
 
     private void Update()
@@ -127,17 +135,34 @@ public class PlayerController : MonoBehaviour
 
     private void GetInput()
     {
-        if (Input.GetKey(KeyCode.A) && !Input.GetKey(KeyCode.D))
-            _horizontalInput = -1.0f;
-        else if (Input.GetKey(KeyCode.D) && !Input.GetKey(KeyCode.A))
-            _horizontalInput = 1.0f;
-        else
-            _horizontalInput = 0.0f;
+        if (!_isInputSwapped)
+        {
+            if (Input.GetKey(KeyCode.A) && !Input.GetKey(KeyCode.D))
+                _horizontalInput = -1.0f;
+            else if (Input.GetKey(KeyCode.D) && !Input.GetKey(KeyCode.A))
+                _horizontalInput = 1.0f;
+            else
+                _horizontalInput = 0.0f;
 
-        if (Input.GetKeyDown(KeyCode.LeftArrow))
-            RotatePolygon(RotationDirection.Left);
-        else if (Input.GetKeyDown(KeyCode.RightArrow))
-            RotatePolygon(RotationDirection.Right);
+            if (Input.GetKeyDown(KeyCode.LeftArrow))
+                RotatePolygon(RotationDirection.Left);
+            else if (Input.GetKeyDown(KeyCode.RightArrow))
+                RotatePolygon(RotationDirection.Right);
+        }
+        else
+        {
+            if (Input.GetKey(KeyCode.LeftArrow) && !Input.GetKey(KeyCode.RightArrow))
+                _horizontalInput = -1.0f;
+            else if (Input.GetKey(KeyCode.RightArrow) && !Input.GetKey(KeyCode.LeftArrow))
+                _horizontalInput = 1.0f;
+            else
+                _horizontalInput = 0.0f;
+            
+            if (Input.GetKeyDown(KeyCode.A))
+                RotatePolygon(RotationDirection.Left);
+            else if (Input.GetKeyDown(KeyCode.D))
+                RotatePolygon(RotationDirection.Right);
+        }
         
         if (_isWaitingForResume && Input.GetKeyDown(KeyCode.Space))
             Resume();
@@ -203,9 +228,16 @@ public class PlayerController : MonoBehaviour
         {
             _rigidbody2D.velocity = Vector2.zero;
             _rigidbody2D.AddForce(_jumpForce * jumpForceModifier * Vector2.up, ForceMode2D.Impulse);
-            
+
             if (platformType == PlatformType.OneTime)
+            {
                 Destroy(col.gameObject);
+            }
+            else if (platformType == PlatformType.Swapper)
+            {
+                Destroy(col.gameObject);
+                GameManager.Instance.TriggerSwappingInSeconds(5f);
+            }
         });
         
         GameManager.Instance.PlayerJump();
@@ -223,6 +255,8 @@ public class PlayerController : MonoBehaviour
         _rigidbody2D.position += 5f * Vector2.up;
         _isWaitingForResume = true;
     }
+
+    private void OnSwapped() => _isInputSwapped = !_isInputSwapped;
 }
 
 public enum RotationDirection
