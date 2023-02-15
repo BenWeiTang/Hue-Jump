@@ -15,6 +15,7 @@ public class GameManager : MonoBehaviour
     public int CurrentLifeCount { get; private set; }
     
     [SerializeField] private int _maxLifeCount = 3;
+    private bool _isWaitingToSwap;
     
     private void Awake()
     {
@@ -33,6 +34,10 @@ public class GameManager : MonoBehaviour
 
     public void TriggerSwappingInSeconds(float seconds)
     {
+        if (_isWaitingToSwap)
+            return;
+
+        _isWaitingToSwap = true;
         SwapTriggered?.Invoke(seconds);
         StartCoroutine(WaitToSwap());
 
@@ -40,6 +45,7 @@ public class GameManager : MonoBehaviour
         {
             yield return new WaitForSeconds(seconds);
             Swapped?.Invoke();
+            _isWaitingToSwap = false;
         }
     }
 
