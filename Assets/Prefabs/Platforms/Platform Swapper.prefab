@@ -16,16 +16,20 @@ PrefabInstance:
       value: Platform Swapper
       objectReference: {fileID: 0}
     - target: {fileID: 2356841814793356796, guid: 0b89a17ac0db97642b811b26a495dbce, type: 3}
+      propertyPath: m_Sprite
+      value: 
+      objectReference: {fileID: 21300000, guid: c35791643f7013743a3f5996548ab661, type: 3}
+    - target: {fileID: 2356841814793356796, guid: 0b89a17ac0db97642b811b26a495dbce, type: 3}
       propertyPath: m_Color.b
-      value: 0.6320754
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 2356841814793356796, guid: 0b89a17ac0db97642b811b26a495dbce, type: 3}
       propertyPath: m_Color.g
-      value: 0.6320754
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 2356841814793356796, guid: 0b89a17ac0db97642b811b26a495dbce, type: 3}
       propertyPath: m_Color.r
-      value: 0.6320754
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 2356841814793356797, guid: 0b89a17ac0db97642b811b26a495dbce, type: 3}
       propertyPath: m_RootOrder
@@ -70,6 +74,14 @@ PrefabInstance:
     - target: {fileID: 2356841814793356797, guid: 0b89a17ac0db97642b811b26a495dbce, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2356841814793356799, guid: 0b89a17ac0db97642b811b26a495dbce, type: 3}
+      propertyPath: m_SpriteTilingProperty.oldSize.x
+      value: 1.0478644
+      objectReference: {fileID: 0}
+    - target: {fileID: 2356841814793356799, guid: 0b89a17ac0db97642b811b26a495dbce, type: 3}
+      propertyPath: m_SpriteTilingProperty.oldSize.y
+      value: 0.2415
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 0b89a17ac0db97642b811b26a495dbce, type: 3}
