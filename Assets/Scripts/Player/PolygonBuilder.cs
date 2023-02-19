@@ -20,6 +20,8 @@ public class PolygonBuilder : MonoBehaviour
 
     [SerializeField] private GameObject _edge;
 
+    [SerializeField] private GameObject[] _edges;
+
     private int _index;
 
     public void Build()
@@ -88,9 +90,8 @@ public class PolygonBuilder : MonoBehaviour
         {
             for (int i = 0; i < polygon.N; i++)
             {
-                var go = Instantiate(_edge, transform.position, Quaternion.identity, polygon.Center);
+                var go = Instantiate(_edges[i], transform.position, Quaternion.identity, polygon.Center);
                 go.GetComponent<SpriteRenderer>().color = _colorPalette.EdgeColors[i].Color;
-                go.transform.localScale = new Vector3(_edgeLength, 0.1f, 1.0f);
                 polygon.Center.Rotate(new Vector3(0.0f, 0.0f, 2.0f * Mathf.Rad2Deg * Mathf.PI / polygon.N), Space.Self);
             }
         }
